@@ -1,7 +1,7 @@
 import pygame
-from images import ImageSupervisor
-from audio import SoundSupervisor
-# from portal import PortalController
+from images import ImageManager
+from audio import SoundManager
+from portal import PortalController
 
 
 class PacMan(pygame.sprite.Sprite):
@@ -14,32 +14,32 @@ class PacMan(pygame.sprite.Sprite):
         self.screen = screen
         self.radius = maze.block_size // 5
         self.maze = maze
-        self.sound_manager = SoundSupervisor(audio_files=['pacman-pellet-eat.wav', 'pacman-fruit-eat.wav',
-                                                       'pacman-killed.wav', 'pacman-portal.wav'],
-                                          keys=['eat', 'fruit', 'dead', 'portal'],
+        self.sound_manager = SoundManager(sound_files=['pacman_eatfruit.wav',
+                                                       'pacman_death.wav', 'portal_fire.wav'],
+                                          keys=['fruit', 'dead', 'portal'],
                                           channel=PacMan.PAC_AUDIO_CHANNEL)
-        self.horizontal_images = ImageSupervisor('pacman-horiz.png', sheet=True, position_offset=[(0, 0, 32, 32),
+        self.horizontal_images = ImageManager('pacman.png', sheet=True, pos_offsets=[(0, 0, 32, 32),
                                                                                            (32, 0, 32, 32),
                                                                                            (0, 32, 32, 32),
                                                                                            (32, 32, 32, 32),
                                                                                            (0, 64, 32, 32)],
                                               resize=(self.maze.block_size, self.maze.block_size),
                                               reversible=True)
-        self.vertical_images = ImageSupervisor('pacman-vert.png', sheet=True, position_offset=[(0, 0, 32, 32),
+        self.vertical_images = ImageManager('pacman.png', sheet=True, pos_offsets=[(0, 0, 32, 32),
                                                                                         (32, 0, 32, 32),
                                                                                         (0, 32, 32, 32),
                                                                                         (32, 32, 32, 32),
                                                                                         (0, 64, 32, 32)],
                                             resize=(self.maze.block_size, self.maze.block_size),
                                             reversible=True)
-        self.death_images = ImageSupervisor('pacman-death.png', sheet=True, position_offset=[(0, 0, 32, 32),
+        self.death_images = ImageManager('pacman.png', sheet=True, pos_offsets=[(0, 0, 32, 32),
                                                                                       (32, 0, 32, 32),
                                                                                       (0, 32, 32, 32),
                                                                                       (32, 32, 32, 32),
                                                                                       (0, 64, 32, 32),
                                                                                       (32, 64, 32, 32)],
                                          resize=(self.maze.block_size, self.maze.block_size),
-                                         delay_animate=150, repeat=False)
+                                         animation_delay=150, repeat=False)
         self.flip_status = {'use_horiz': True, 'h_flip': False, 'v_flip': False}
         self.spawn_info = self.maze.player_spawn[1]
         self.tile = self.maze.player_spawn[0]
@@ -49,7 +49,7 @@ class PacMan(pygame.sprite.Sprite):
         self.image, self.rect = self.horizontal_images.get_image()
         self.rect.centerx, self.rect.centery = self.spawn_info   # screen coordinates for spawn
         self.dead = False
-        # self.portal_controller = PortalController(screen, self, maze)   # controller object for portal
+        self.portal_controller = PortalController(screen, self, maze)   # controller object for portal
 
         # Keyboard related events/actions/releases
         self.event_map = {pygame.KEYDOWN: self.perform_action, pygame.KEYUP: self.reset_direction}
@@ -57,19 +57,19 @@ class PacMan(pygame.sprite.Sprite):
                            pygame.K_DOWN: self.set_move_down, pygame.K_RIGHT: self.set_move_right,
                            pygame.K_q: self.blue_portal, pygame.K_w: self.orange_portal}
 
-    # def clear_portals(self):
-        # """Remove all portals from play"""
-        # self.portal_controller.clear_portals()
+    def clear_portals(self):
+        """Remove all portals from play"""
+        self.portal_controller.clear_portals()
 
-    # def blue_portal(self):
-        # """Create a blue portal from PacMan"""
-        # self.sound_manager.play('portal')
-        # self.portal_controller.fire_b_portal_projectile()
+    def blue_portal(self):
+        """Create a blue portal from PacMan"""
+        self.sound_manager.play('portal')
+        self.portal_controller.fire_b_portal_projectile()
 
-    # def orange_portal(self):
-        # """Create an orange portal from PacMan"""
-        # self.sound_manager.play('portal')
-        # self.portal_controller.fire_o_portal_projectile()
+    def orange_portal(self):
+        """Create an orange portal from PacMan"""
+        self.sound_manager.play('portal')
+        self.portal_controller.fire_o_portal_projectile()
 
     def set_death(self):
         """Set the death flag for PacMan and begin the death animation"""
