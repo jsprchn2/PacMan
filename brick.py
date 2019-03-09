@@ -2,17 +2,16 @@ import pygame
 from pygame.sprite import Sprite
 
 
-class Portal(Sprite):
+class Blocks(Sprite):
     def __init__(self, screen):
-        super(Portal, self).__init__()
+        super(Blocks, self).__init__()
         self.screen = screen
-        self.height = 30
-        self.width = 30
-        img = pygame.image.load('images/portal.png')
+        self.height = 10
+        self.width = 10
+        img = pygame.image.load('images/square.png')
         img = pygame.transform.scale(img, (self.height, self.width))
         self.rect = img.get_rect()
         self.image = img
 
-    def blitportal(self):
+    def blitblocks(self):
         self.screen.blit(self.image, self.rect)
-
