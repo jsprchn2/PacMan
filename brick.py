@@ -2,9 +2,9 @@ import pygame
 from pygame.sprite import Sprite
 
 
-class Blocks(Sprite):
+class Bricks(Sprite):
     def __init__(self, screen):
-        super(Blocks, self).__init__()
+        super(Bricks, self).__init__()
         self.screen = screen
         self.height = 10
         self.width = 10
@@ -13,5 +13,5 @@ class Blocks(Sprite):
         self.rect = img.get_rect()
         self.image = img
 
-    def blitblocks(self):
+    def blitBricks(self):
         self.screen.blit(self.image, self.rect)
