@@ -2,17 +2,16 @@ import pygame
 from pygame.sprite import Sprite
 
 
-class Portal(Sprite):
+class Shield(Sprite):
     def __init__(self, screen):
-        super(Portal, self).__init__()
+        super(Shield, self).__init__()
         self.screen = screen
-        self.height = 30
-        self.width = 30
-        img = pygame.image.load('images/portal.png')
+        self.height = 13
+        self.width = 13
+        img = pygame.image.load('images/shield.png')
         img = pygame.transform.scale(img, (self.height, self.width))
         self.rect = img.get_rect()
         self.image = img
 
-    def blitportal(self):
+    def blitshield(self):
         self.screen.blit(self.image, self.rect)
-
