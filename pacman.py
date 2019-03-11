@@ -107,6 +107,9 @@ class Pacman():
                 self.image = self.pac_down[self.image_index]
                 self.image_index += 1
 
+    def firePortal(self):
+        pass
+
     def blitpacman(self):
         self.screen.blit(self.image, self.rect)
 

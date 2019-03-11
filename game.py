@@ -7,7 +7,6 @@ from ghosts import Ghosts
 from settings import Settings
 from game_stats import GameStats
 
-
 BLACK = (0, 0, 0)
 WHITE = (250, 250, 250)
 
@@ -23,11 +22,9 @@ def Game():
     screen = pygame.display.set_mode((gamesettings.screen_width, gamesettings.screen_height))
     pygame.display.set_caption("Pacman Portal")
 
-    # Start screen
     startScreen = StartScreen(screen, gamesettings)
     showgamestats = GameStats(screen, gamesettings)
 
-    # Grouping blocks and pellets
     bricks = Group()
     powerpellets = Group()
     pellets = Group()
@@ -37,7 +34,6 @@ def Game():
 
     thepacman = Pacman(screen, gamesettings)
 
-    # Making the ghosts
     redghost = Ghosts(screen, "red")
     cyanghost = Ghosts(screen, "cyan")
     orangeghost = Ghosts(screen, "orange")

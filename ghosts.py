@@ -10,18 +10,21 @@ class Ghosts():
         self.height = 32
         self.width = 32
 
+        ss_ghost = pygame.image.load('images/ghosts.png')
+
+
         img = ''
         if color == "red":
             img = pygame.image.load('images/frames/redD1.png')
         elif color == "cyan":
             img = pygame.image.load('images/frames/pinkL1.png')
-            i = 36
+            i = 30
         elif color == "orange":
             img = pygame.image.load('images/frames/blueR1.png')
-            i = 105
+            i = 85
         elif color == "pink":
             img = pygame.image.load('images/frames/orangeU1.png')
-            i = 72
+            i = 52
 
         image = pygame.transform.scale(img, (self.height, self.width))
         self.rect = image.get_rect()
