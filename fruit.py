@@ -8,7 +8,7 @@ class Fruits(Sprite):
         self.screen = screen
         self.height = 5
         self.width = 5
-        img = pygame.image.load('images/square.png')
+        img = pygame.image.load('images/cherry.png')
         img = pygame.transform.scale(img, (self.height, self.width))
         self.rect = img.get_rect()
         self.image = img

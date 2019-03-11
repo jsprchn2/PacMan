@@ -18,12 +18,12 @@ def __str__(self):
 def Game():
     pygame.init()
 
-    gamesettings = Settings()
-    screen = pygame.display.set_mode((gamesettings.screen_width, gamesettings.screen_height))
+    settings = Settings()
+    screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
     pygame.display.set_caption("Pacman Portal")
 
-    startScreen = StartScreen(screen, gamesettings)
-    showgamestats = GameStats(screen, gamesettings)
+    startScreen = StartScreen(screen, settings)
+    showgamestats = GameStats(screen, settings)
 
     bricks = Group()
     powerpellets = Group()
@@ -32,12 +32,12 @@ def Game():
     fruits = Group()
     portal = Group()
 
-    thepacman = Pacman(screen, gamesettings)
+    thepacman = Pacman(screen, settings)
 
-    redghost = Ghosts(screen, "red")
-    cyanghost = Ghosts(screen, "cyan")
-    orangeghost = Ghosts(screen, "orange")
-    pinkghost = Ghosts(screen, "pink")
+    blinky = Ghosts(screen, "red")
+    inky = Ghosts(screen, "cyan")
+    clyde = Ghosts(screen, "orange")
+    pinky = Ghosts(screen, "pink")
 
     startScreen.makeScreen(screen)
     gf.readFile(screen, bricks, shield, pellets, powerpellets)
@@ -58,10 +58,10 @@ def Game():
         for pellet in pellets:
             pellet.blitpellet()
         thepacman.blitpacman()
-        redghost.blitghosts()
-        cyanghost.blitghosts()
-        orangeghost.blitghosts()
-        pinkghost.blitghosts()
+        blinky.blitghosts()
+        inky.blitghosts()
+        clyde.blitghosts()
+        pinky.blitghosts()
 
         pygame.display.flip()
 
