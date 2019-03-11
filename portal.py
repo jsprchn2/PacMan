@@ -8,7 +8,7 @@ class Portal(Sprite):
         self.screen = screen
         self.height = 30
         self.width = 30
-        img = pygame.image.load('images/portal.png')
+        img = pygame.image.load('images/blueportal6.png')
         img = pygame.transform.scale(img, (self.height, self.width))
         self.rect = img.get_rect()
         self.image = img

@@ -1,6 +1,6 @@
 import pygame
-from block import Block
-from fruit import Fruit
+from brick import Bricks
+from fruit import Fruits
 from random import randrange
 
 
@@ -28,17 +28,17 @@ class Maze:
     def __init__(self, screen, maze_map_file):
         self.screen = screen
         self.map_file = maze_map_file
-        self.block_size = 20
-        self.block_image = pygame.Surface((self.block_size, self.block_size))   # create a block surface
-        self.block_image.fill(Maze.NEON_BLUE)
-        self.shield_image = pygame.Surface((self.block_size, self.block_size // 2))     # create a shield surface
+        self.brick_size = 20
+        self.brick_image = pygame.Surface((self.brick_size, self.brick_size))   # create a block surface
+        self.brick_image.fill(Maze.NEON_BLUE)
+        self.shield_image = pygame.Surface((self.brick_size, self.brick_size // 2))     # create a shield surface
         self.shield_image.fill(Maze.WHITE)
-        self.pellet_image = pygame.Surface((self.block_size // 4, self.block_size // 4))    # create a pellet surface
+        self.pellet_image = pygame.Surface((self.brick_size // 4, self.brick_size // 4))    # create a pellet surface
         pygame.draw.circle(self.pellet_image, Maze.PELLET_YELLOW,   # draw pellet onto pellet surface
-                           (self.block_size // 8, self.block_size // 8), self.block_size // 8)
-        self.ppellet_image = pygame.Surface((self.block_size // 2, self.block_size // 2))  # create a pellet surface
+                           (self.brick_size // 8, self.brick_size // 8), self.brick_size // 8)
+        self.ppellet_image = pygame.Surface((self.brick_size // 2, self.brick_size // 2))  # create a pellet surface
         pygame.draw.circle(self.ppellet_image, Maze.WHITE,  # draw power pellet onto pellet surface
-                           (self.block_size // 4, self.block_size // 4), self.block_size // 4)
+                           (self.brick_size // 4, self.brick_size // 4), self.brick_size // 4)
         with open(self.map_file, 'r') as file:
             self.map_lines = file.readlines()
         self.maze_blocks = pygame.sprite.Group()    # maze assets
@@ -75,41 +75,41 @@ class Maze:
             x = 0
             for j in range(len(line)):
                 co = line[j]
-                if co == 'x':
-                    self.maze_blocks.add(Block(x_start + (x * self.block_size),
-                                               y_start + (y * self.block_size),
-                                               self.block_size, self.block_size,
-                                               self.block_image))
-                elif co == '*':
+                if co == 'X':
+                    self.maze_blocks.add(Bricks(x_start + (x * self.brick_size),
+                                               y_start + (y * self.brick_size),
+                                               self.brick_size, self.brick_size,
+                                               self.brick_image))
+                elif co == 'o':
                     if randrange(0, 100) > 1:
-                        self.pellets.add(Block(x_start + (self.block_size // 3) + (x * self.block_size),
-                                               y_start + (self.block_size // 3) + (y * self.block_size),
-                                               self.block_size, self.block_size,
+                        self.pellets.add(Bricks(x_start + (self.brick_size // 3) + (x * self.brick_size),
+                                               y_start + (self.brick_size // 3) + (y * self.brick_size),
+                                               self.brick_size, self.brick_size,
                                                self.pellet_image))
                     else:
-                        self.fruits.add(Fruit(x_start + (self.block_size // 4) + (x * self.block_size),
-                                              y_start + (self.block_size // 4) + (y * self.block_size),
-                                              self.block_size, self.block_size))
-                elif co == '@':
-                    self.power_pellets.add(Block(x_start + (self.block_size // 3) + (x * self.block_size),
-                                                 y_start + (self.block_size // 3) + (y * self.block_size),
-                                                 self.block_size, self.block_size,
+                        self.fruits.add(Fruits(x_start + (self.brick_size // 4) + (x * self.brick_size),
+                                              y_start + (self.brick_size // 4) + (y * self.brick_size),
+                                              self.brick_size, self.brick_size))
+                elif co == 'P':
+                    self.power_pellets.add(Bricks(x_start + (self.brick_size // 3) + (x * self.brick_size),
+                                                 y_start + (self.brick_size // 3) + (y * self.brick_size),
+                                                 self.brick_size, self.brick_size,
                                                  self.ppellet_image))
-                elif co == 's':
-                    self.shield_blocks.add(Block(x_start + (x * self.block_size),
-                                                 y_start + (y * self.block_size),
-                                                 self.block_size // 2, self.block_size // 2,
+                elif co == '-':
+                    self.shield_blocks.add(Bricks(x_start + (x * self.brick_size),
+                                                 y_start + (y * self.brick_size),
+                                                 self.brick_size // 2, self.brick_size // 2,
                                                  self.shield_image))
-                elif co == 'o':
-                    self.player_spawn = [(i, j), (x_start + (x * self.block_size) + (self.block_size // 2),
-                                         y_start + (y * self.block_size) + (self.block_size // 2))]
-                elif co == 'g':
-                    self.ghost_spawn.append(((i, j), (x_start + (x * self.block_size),
-                                            y_start + (y * self.block_size))))
-                elif co == 't':
-                    teleport_points.append(pygame.Rect(x_start + (x * self.block_size),
-                                                       y_start + (y * self.block_size),
-                                                       self.block_size, self.block_size))
+                elif co == 'P':
+                    self.player_spawn = [(i, j), (x_start + (x * self.brick_size) + (self.brick_size // 2),
+                                         y_start + (y * self.brick_size) + (self.brick_size // 2))]
+                elif co == 'G':
+                    self.ghost_spawn.append(((i, j), (x_start + (x * self.brick_size),
+                                            y_start + (y * self.brick_size))))
+                elif co == 'T':
+                    teleport_points.append(pygame.Rect(x_start + (x * self.brick_size),
+                                                       y_start + (y * self.brick_size),
+                                                       self.brick_size, self.brick_size))
                 x += 1
             y += 1
         if len(teleport_points) == 2:

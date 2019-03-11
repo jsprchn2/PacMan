@@ -2,13 +2,13 @@ import pygame
 from pygame.sprite import Sprite
 
 
-class Powerpills(Sprite):
+class PowerPellets(Sprite):
     def __init__(self, screen):
-        super(Powerpills, self).__init__()
+        super(PowerPellets, self).__init__()
         self.screen = screen
-        self.height = 7
-        self.width = 7
-        img = pygame.image.load('images/powerpill.png')
+        self.height = 14
+        self.width = 14
+        img = pygame.image.load('images/powerpellet.png')
         img = pygame.transform.scale(img, (self.height, self.width))
         self.rect = img.get_rect()
         self.image = img
@@ -21,12 +21,13 @@ class Pellets(Sprite):
     def __init__(self, screen):
         super(Pellets, self).__init__()
         self.screen = screen
-        self.height = 3
-        self.width = 3
-        img = pygame.image.load('images/pellets.png')
+        self.height = 7
+        self.width = 7
+        img = pygame.image.load('images/pellet.png')
         img = pygame.transform.scale(img, (self.height, self.width))
         self.rect = img.get_rect()
         self.image = img
 
     def blitpellet(self):
         self.screen.blit(self.image, self.rect)
+

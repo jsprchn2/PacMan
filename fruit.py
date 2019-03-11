@@ -1,10 +1,17 @@
-from brick import Bricks
-from random import choice
+import pygame
+from pygame.sprite import Sprite
 
 
-class Fruit(Bricks):
-    """Inherits from maze.Block to represent a fruit available for pickup in the maze"""
-    def __init__(self, x, y, width, height):
-        images = ['apple.png', 'cherry.png', 'orange.png', 'strawberry.png']
-        # fruit_image, _ = ImageManager(img=choice(images), resize=(width // 2, height // 2)).get_image()
-        # super(Fruit, self).__init__(x, y, width, height, fruit_image)
+class Fruits(Sprite):
+    def __init__(self, screen):
+        super(Fruits, self).__init__()
+        self.screen = screen
+        self.height = 5
+        self.width = 5
+        img = pygame.image.load('images/square.png')
+        img = pygame.transform.scale(img, (self.height, self.width))
+        self.rect = img.get_rect()
+        self.image = img
+
+    def blitbricks(self):
+        self.screen.blit(self.image, self.rect)
