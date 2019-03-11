@@ -1,8 +1,3 @@
-# Aaron Xaymountry
-# CPSC 386-01
-# MW 5:30-6:45pm
-# Pacman game with portals
-
 import pygame
 from pygame.sprite import Group
 
@@ -12,8 +7,8 @@ class Ghosts():
         super(Ghosts, self).__init__()
         i = 0
         self.screen = screen
-        self.height = 35
-        self.width = 35
+        self.height = 32
+        self.width = 32
 
         img = ''
         if color == "red":

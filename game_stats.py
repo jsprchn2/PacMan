@@ -22,7 +22,7 @@ class GameStats():
         self.pacpos2 = ((self.settings.screen_width / 2) + 300, (self.settings.screen_height / 8) - 25)
         self.pacpos3 = ((self.settings.screen_width / 2) + 350, (self.settings.screen_height / 8) - 25)
 
-        # Lives display text
+        # Lives text
         self.text_color = (30, 30, 30)
         font = pygame.font.Font(None, 72)
         self.font = pygame.font.SysFont(None, 48)
@@ -30,7 +30,7 @@ class GameStats():
         self.Livespos = self.Livestext.get_rect()
         self.Livespos = ((self.settings.screen_width / 2) + 250, (self.settings.screen_height / 8) - 75)
 
-        # Score display text
+        # Score text
         self.text_color = (30, 30, 30)
         font = pygame.font.Font(None, 72)
         self.font = pygame.font.SysFont(None, 48)

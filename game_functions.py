@@ -8,7 +8,7 @@ from portal import Portal
 
 
 def check_events(pacman):
-    """Respond to keypresses and mouse events."""
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -19,7 +19,7 @@ def check_events(pacman):
 
 
 def check_keydown_events(event, pacman):
-    """Respond to keypresses."""
+
     if event.key == pygame.K_UP:
         pacman.moving_up = True
     elif event.key == pygame.K_DOWN:
@@ -35,7 +35,7 @@ def check_keydown_events(event, pacman):
 
 
 def check_keyup_events(event, pacman):
-    """Respond to key releases."""
+
     if event.key == pygame.K_RIGHT:
         pacman.moving_right = False
     elif event.key == pygame.K_LEFT:
@@ -46,7 +46,6 @@ def check_keyup_events(event, pacman):
         pacman.moving_down = False
 
 
-# Check direction pacman is going to compare and see if he can't go a direction anymore if he hit a block
 def check_direction(pacman, block):
     left = False
     right = False
@@ -71,7 +70,6 @@ def check_direction(pacman, block):
         pacman.y += 1
 
 
-# Check the direction pacman is going for the collision with the shield
 def check_shield_direction(pacman, shield):
     left = False
     right = False
@@ -97,7 +95,6 @@ def check_shield_direction(pacman, shield):
         pacman.y += 1
 
 
-# Pacman collision handling
 def check_collision(pacman, blocks, pellets, powerpellets, shield, fruits):
     for block in blocks:
         if pygame.sprite.collide_rect(pacman, block):

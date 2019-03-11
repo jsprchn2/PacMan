@@ -11,12 +11,14 @@ class Pacman():
         self.height = 35
         self.width = 35
         self.lives = 3
+
+        # check with single frames first
         img = pygame.image.load('images/frames/pacmanH.png')
-        self.p_left = img
-        self.p_right = pygame.transform.flip(img, True, False)
-        self.p_up = pygame.transform.rotate(img, -90)
-        self.p_down = pygame.transform.rotate(img, 90)
-        self.image = pygame.image.load('images/frames/pacmanH.png')
+        # self.p_left = img
+        # self.p_right = pygame.transform.flip(img, True, False)
+        # self.p_up = pygame.transform.rotate(img, -90)
+        # self.p_down = pygame.transform.rotate(img, 90)
+
         self.pac_left = [pygame.image.load('images/frames/pacmanH.png'),
                          pygame.image.load('images/frames/pacmanH2.png'),
                          pygame.image.load('images/frames/pacmanH4.png')]
@@ -26,9 +28,9 @@ class Pacman():
         self.pac_right = [pygame.transform.flip(self.pac_left[0], True, False),
                           pygame.transform.flip(self.pac_left[1], True, False),
                           pygame.transform.flip(self.pac_left[2], True, False)]
-        self.pac_up = [pygame.transform.flip(self.pac_down[0], True, False),
-                       pygame.transform.flip(self.pac_down[1], True, False),
-                       pygame.transform.flip(self.pac_down[2], True, False)]
+        self.pac_up = [pygame.transform.flip(self.pac_down[0], False, True),
+                       pygame.transform.flip(self.pac_down[1], False, True),
+                       pygame.transform.flip(self.pac_down[2], False, True)]
         self.death = [pygame.image.load('images/frames/pacmanHD1.png'),
                       pygame.image.load('images/frames/pacmanHD2.png'),
                       pygame.image.load('images/frames/pacmanHD3.png'),
@@ -36,7 +38,10 @@ class Pacman():
                       pygame.image.load('images/frames/pacmanVD2.png'),
                       pygame.image.load('images/frames/pacmanVD3.png')
                       ]
+        self.image = img
         self.image_index = 0
+        self.death_index = 0
+        self.frames = 3
         self.direction = "Left"
 
         # attempts at making sprite sheet or using subsurface to cut up spritesheet image
@@ -62,48 +67,48 @@ class Pacman():
         #     self.pac_right.append(pygame.transform.flip(self.pac_left[pac_index], True, False))
         # for pac_index in self.pac_up:
         #     self.pac_right.append(pygame.transform.flip(self.pac_down[pac_index], False, True))
-        self.rect = self.image.get_rect()
+        # self.image = self.image[self.image_index]
+        self.rect = img.get_rect()
         self.rect.x, self.rect.y = 310, 515
         self.rect.left -= self.rect.width
         self.rect.top -= self.rect.height
 
         self.x, self.y = 300, 500
         self.rect.x, self.rect.y = self.x, self.y
-        # For updating pacman and to rotate depending on direction
+
         self.moving_up = False
         self.moving_down = False
         self.moving_left = False
         self.moving_right = False
 
-    # Updates pacman direction and sprite depending on direction
     def update(self):
         self.rect.x, self.rect.y = self.x, self.y
-        if self.moving_right:
-            self.x += self.settings.pacspd
-            self.direction = "Right"
-            self.image = self.p_right
-        elif self.moving_left:
-            self.x -= self.settings.pacspd
-            self.direction = "Left"
-            self.image = self.p_left
-        elif self.moving_up:
-            self.y -= self.settings.pacspd
-            self.direction = "Up"
-            self.image = self.p_up
-        elif self.moving_down:
-            self.y += self.settings.pacspd
-            self.direction = "Down"
-            self.image = self.p_down
+        if self.image_index >= self.frames:
+            self.image_index = 0
+        else:
+            if self.moving_right:
+                self.x += self.settings.pacspd
+                self.direction = "Right"
+                self.image = self.pac_right[self.image_index]
+                self.image_index += 1
+            elif self.moving_left:
+                self.x -= self.settings.pacspd
+                self.direction = "Left"
+                self.image = self.pac_left[self.image_index]
+                self.image_index += 1
+            elif self.moving_up:
+                self.y -= self.settings.pacspd
+                self.direction = "Up"
+                self.image = self.pac_up[self.image_index]
+                self.image_index += 1
+            elif self.moving_down:
+                self.y += self.settings.pacspd
+                self.direction = "Down"
+                self.image = self.pac_down[self.image_index]
+                self.image_index += 1
 
     def blitpacman(self):
         self.screen.blit(self.image, self.rect)
-        # if pygame.time.get_ticks() % 200 <= 50:
-        #     self.screen.blit(self.image[0], self.rect)
-        # elif pygame.time.get_ticks() % 200 <= 100:
-        #     self.screen.blit(self.image[1], self.rect)
-        # elif pygame.time.get_ticks() % 200 <= 150:
-        #     self.screen.blit(self.image[2], self.rect)
-        # else:
-        #     self.screen.blit(self.image[2], self.rect)
+
 
 
